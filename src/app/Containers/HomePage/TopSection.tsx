@@ -5,6 +5,7 @@ import tw from "twin.macro"
 import MclarenCarImg from "../../assets/images/mclaren-orange-big.png"
 import BlobImg from "../../assets/images/blob.svg"
 import { SCREENS } from "../../Responsive/index"
+import Button from "../../Components/Buttons"
 
 const TopSectionContainer = styled.div`
   min-height: 400px;
@@ -116,7 +117,7 @@ const StandaloneCar = styled.div`
   position: absolute;
 
   img {
-    height: 4em 
+    height: 100%;
     max-width: fit-content;
     object-fit: contain;
   }
@@ -158,6 +159,10 @@ const TopSection = () => {
           at the best price for you and get the best quality cars for as long as
           you like
         </Description>
+        <ButtonsContainer>
+          <Button text="Book your ride" />
+          <Button text="Sell your Car" />
+        </ButtonsContainer>
       </LeftContainer>
       <RightContainer>
         <BlobContainer>
