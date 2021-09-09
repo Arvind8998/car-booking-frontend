@@ -1,10 +1,12 @@
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 import Button from "../Buttons"
 import { Marginer } from "../Marginer"
+import Calendar from "react-calendar"
+import "react-calendar/dist/Calendar.css"
 
 const CardContainer = styled.div`
   min-height: 4.3em;
@@ -54,21 +56,49 @@ const LineSeperator = styled.span`
     md:ml-5
   `};
 `
+const DateCalendar = styled(Calendar)`
+  position: absolute;
+  max-width: none;
+  user-select: none;
+  top: 3.4em;
+  left: -3em;
+`
+
 const BookCard = () => {
+  const [startDate, setStartDate] = useState<Date>(new Date())
+  const [isStartCalendarOpen, setStartCalendar] = useState(false)
+  const [returnDate, setReturnDate] = useState<Date>(new Date())
+  const [isReturnCalendarOpen, setReturnCalendar] = useState(false)
+
+  const toggleStartCalendar = () => {
+    setStartCalendar(!isStartCalendarOpen)
+  }
+
+  const toggleReturnCalendar = () => {
+    setReturnCalendar(!isReturnCalendarOpen)
+  }
+
   return (
     <CardContainer>
       <ItemContainer>
         <Icon>
           <FontAwesomeIcon icon={faCalendarAlt} />
         </Icon>
-        <Name>Pick Up Date</Name>
+        <Name onClick={toggleStartCalendar}>Pick Up Date</Name>
+        {isStartCalendarOpen && (
+          <DateCalendar value={startDate} onChange={setStartDate} />
+        )}
       </ItemContainer>
+
       <LineSeperator />
       <ItemContainer>
         <Icon>
           <FontAwesomeIcon icon={faCalendarAlt} />
         </Icon>
-        <Name>Return Date</Name>
+        <Name onClick={toggleReturnCalendar}>Return Date</Name>
+        {isReturnCalendarOpen && (
+          <DateCalendar value={returnDate} onChange={setReturnDate} />
+        )}
       </ItemContainer>
       <Marginer direction="horizontal" margin="2em" />
       <Button text="Book your Ride" />
